@@ -259,7 +259,7 @@ interval.week <- melt(interval.week, measure.vars =c("Mean", "Median"), variable
 
 ```r
 #Create faceted time series graph showing the difference between behaviour at the week and weekend 
-ggplot(interval.week, aes(x=Interval, y=Steps)) + geom_line() + facet_grid(Week~.)+geom_smooth()+ggtitle("Line plot showing aggregated number of steps per time interval/n faceted by week/weekend")+xlab("time interval") + ylab("average number of steps")
+ggplot(interval.week, aes(x=Interval, y=Steps)) + geom_line() + facet_grid(Week~.)+geom_smooth()+ggtitle("Line plot showing aggregated number of steps per time interval\n faceted by week/weekend")+xlab("time interval") + ylab("average number of steps")
 ```
 
 ```
