@@ -8,7 +8,7 @@ output: html_document
 ##Step 1: Load libraries, Set up folder and obtain data set 
 
 ###Load libraries
-the libraries and packages required for this analysis are loaded below, it is assuemd that the user has installed the relevant packages
+the libraries and packages required for this analysis are loaded below.
 
 
 package test function, checks to see if a package has been installed and loads it, if the pakage has not been installed then it installs and loads. the function was adapted from a solution provided by Sacha EpsKamp on [Stackexchange](http://stackoverflow.com/questions/9341635/how-can-i-check-for-installed-r-packages-before-running-install-packages)
@@ -27,14 +27,16 @@ pkgTest <- function(x)
 ```
 Check for packages load as required
 ```{r}
-packages <- c("ggplot2","reshape2","RCurl", "plyr")
+packages <- c("ggplot2","reshape2", "plyr")
 
 pkgTest(packages)
 ```
 
 ```{r}
 #This code chunk is to ensure that the computer can always navigate back to the start folder, it also avoids things like accidently nesting several files sturctures
-if (!exists("basewd")){basewd <-getwd()  
+if (!exists("basewd")){
+  basewd <-getwd()  
+  setwd(basewd)
   }  else {setwd(basewd)}
 ```
 
@@ -67,12 +69,12 @@ setwd(file.path(basewd,ProjectName, "Data", "Raw"))
 ```
 
 
-```{r, eval=FALSE}
-#This code chunk checks the raw data folder to see if the file is already present if not it downloads it from the coursera website and unzips it ready for use. this code chunk needs to be turned off when knitting other wise the script won't work. Need to find a solution where Knitr can download and open a zip file
+```{r, }
+#This code chunk checks the raw data folder to see if the file is already present if not it downloads it from the coursera website and unzips it ready for use. As the file is a niary the option mode="wb" should be used also knitry doesn't like https so http was used instead
 
 if (file.exists("repdata-data-activity.zip") == FALSE){
-  url <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
-  download.file(url, "repdata-data-activity.zip")
+  url <- "http://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
+  download.file(url, "repdata-data-activity.zip", mode="wb")
     unzip("repdata-data-activity.zip")
 
 }
@@ -138,7 +140,7 @@ There was a large difference between the maximum steps per minute during the tri
 
 ##Imputing missing values
 
-The total number of rows with missing values is `r incom` which is `r incom/nrow(data)`/% of the total data set.
+The total number of rows with missing values is `r incom` which is `r incom/nrow(data)*100`/% of the total data set.
 
 A suitable imputation method is to replace the NA values with the mean value for that 5 minute period.
 
@@ -188,7 +190,7 @@ interval.week <- melt(interval.week, measure.vars =c("Mean", "Median"), variable
 
 ```{r}
 #Create faceted time series graph showing the difference between behaviour at the week and weekend 
-ggplot(interval.week, aes(x=Interval, y=Steps)) + geom_line() + facet_grid(Week~.)+geom_smooth()+ggtitle("Line plot showing aggregated number of steps per time interval facet by week/weekend")+xlab("time interval") + ylab("average number of steps")
+ggplot(interval.week, aes(x=Interval, y=Steps)) + geom_line() + facet_grid(Week~.)+geom_smooth()+ggtitle("Line plot showing aggregated number of steps per time interval/n faceted by week/weekend")+xlab("time interval") + ylab("average number of steps")
 ```
 
 When comparing week to weenend walking patterns we see that the number of steps per time interval peaks in the morning during rush hour and is lower during the middle of the day when everybody is a work, this contrasts with the weekend pattern that starts later is more evenly spread out through the day with more of a peak at the end of the day.
