@@ -2,7 +2,7 @@
 title: "Reproducible Research Assessment 1"
 author: "Jonathan Bourne"
 date: "Saturday, August 16, 2014"
-output: html_document
+output: pdf_document
 ---
 
 ##Step 1: Load libraries, Set up folder and obtain data set 
@@ -28,7 +28,6 @@ pkgTest <- function(x)
 Check for packages load as required
 ```{r}
 packages <- c("ggplot2","reshape2", "plyr")
-
 pkgTest(packages)
 ```
 
@@ -64,7 +63,7 @@ projstrct(ProjectName)
 ###Download data set
 
 ```{r}
-# The next two code chnks both require the same file path however they the file that downloads the zip may be set to eval = FALSE to avoid problems when knitting.
+# The next two code chnks both require the same file path
 setwd(file.path(basewd,ProjectName, "Data", "Raw"))
 ```
 
